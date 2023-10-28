@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <com.jy.DragFloatButton.DragFloatButton
+        android:id="@+id/drag_float_button"
+        android:padding="10dp"
+        android:layout_margin="10dp"
+        android:scaleType="center"
+		android:src="@drawable/float_btn_icon"
+        android:layout_width="75dp"
+        android:layout_height="75dp"/>
+</RelativeLayout>

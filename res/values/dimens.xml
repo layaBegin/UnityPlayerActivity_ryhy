@@ -1,0 +1,12 @@
+<resources>
+
+    <!--高度控制-->
+    <dimen name="mm_import_box_height">82px</dimen>
+    <dimen name="mm_import_box_width">558px</dimen>
+    <dimen name="mm_dialog_height_1">596px</dimen>
+    <dimen name="mm_dialog_width_1">634px</dimen>
+    <dimen name="mm_dialog_height_2">584px</dimen>
+    <dimen name="mm_dialog_width_2">824px</dimen>
+    <dimen name="mm_dialog_height_3">626px</dimen>
+    <dimen name="mm_dialog_width_3">1054px</dimen>  
+</resources>

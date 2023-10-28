@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<config>
+	<item packageName = "com.mmcy.mjgs" />
+	<item productName = "麻将高手" />
+</config>  

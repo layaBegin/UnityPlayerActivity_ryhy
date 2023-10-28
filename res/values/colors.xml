@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="mm_transparent" >#00000000</color>
+    <!--背景颜色-->
+    <color name="mm_background" >#ffffff</color>
+    <color name="mm_Font" >#666666</color>
+    <color name="mm_hint_Font" >#999999</color>
+    <color name="mm_line_color" >#dbe0e6</color>
+    <color name="mm_primary_code" >#f27341</color>
+</resources>

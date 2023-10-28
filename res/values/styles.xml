@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<style name="UnityThemeSelector" parent="android:Theme.Light.NoTitleBar.Fullscreen">
+</style>
+    <style name="MMDialogStyle">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowEnterAnimation">@null</item>
+        <item name="android:windowExitAnimation">@null</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="sdkTransparent">
+        <item name="android:windowBackground">@color/mm_transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
+    </style>
+    <!-- <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item> -->
+    <style name="Animation" parent="@android:style/Animation.Translucent">
+        <item name="android:activityOpenEnterAnimation">@null</item>
+        <item name="android:activityOpenExitAnimation">@null</item>
+        <item name="android:activityCloseEnterAnimation">@null</item>
+        <item name="android:activityCloseExitAnimation">@null</item>
+        <item name="android:taskOpenEnterAnimation">@null</item>
+        <item name="android:taskOpenExitAnimation">@null</item>
+        <item name="android:taskCloseEnterAnimation">@null</item>
+        <item name="android:taskCloseExitAnimation">@null</item>
+        <item name="android:taskToFrontEnterAnimation">@null</item>
+        <item name="android:taskToFrontExitAnimation">@null</item>
+        <item name="android:taskToBackEnterAnimation">@null</item>
+        <item name="android:taskToBackExitAnimation">@null</item>
+        <!-- <item name="windowEnterAnimation">@anim/translucent_enter</item> -->
+        <!-- <item name="windowExitAnimation">@anim/translucent_exit</item> -->
+    </style>
+
+    <style name="loading_dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowBackground">@@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+    </style>
+    
+     <style name="mm_input_box_type">
+        <!--高度控制-->
+        <item name="android:layout_height">82px</item>
+        <item name="android:layout_width">558px</item>
+        <item name="android:layout_marginLeft">38px</item>
+        <item name="android:layout_marginRight">38px</item>
+    </style>
+    <style name="mm_button_type">
+        <!--高度控制-->
+        <item name="android:layout_height">82px</item>
+        <item name="android:layout_width">558px</item>
+
+    </style>
+<!--中尺寸的按钮-->
+    <style name="mm_button_type_2">
+        <!--高度控制-->
+        <item name="android:layout_height">82px</item>
+        <item name="android:layout_width">700px</item>
+    </style>
+
+    <style name="mm_input_box_type_2">
+        <!--高度控制-->
+        <item name="android:layout_height">82px</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_width">700px</item>
+        <item name="android:layout_marginLeft">38px</item>
+        <item name="android:layout_marginRight">38px</item>
+    </style>
+</resources>

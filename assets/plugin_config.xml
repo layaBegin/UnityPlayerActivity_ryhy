@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<plugins>
+
+    <plugin
+        name="com.xmen.mmcy.union.sdk.defaultSDK.MMUser"
+        type="1" />
+
+    <plugin
+        name="com.xmen.mmcy.union.sdk.defaultSDK.MMPay"
+        type="2" />
+
+    <plugin
+        name="com.xmen.mmcy.union.sdk.WeiXinShare"
+        type="4" />
+
+</plugins>
