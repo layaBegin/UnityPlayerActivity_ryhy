@@ -1,35 +1,11 @@
 package com.jy.jyhy;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.ContentHandler;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.NetworkInterface;
-import java.net.ProtocolException;
-import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Locale;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.ClipData;
-import android.content.ClipDescription;
 import android.content.ClipboardManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -40,7 +16,6 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.net.wifi.WifiInfo;
@@ -49,38 +24,51 @@ import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.ValueCallback;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.alipay.sdk.app.PayTask;
+import com.cf.msc.sdk.AppVest;
+import com.cf.msc.sdk.SecurityConnection;
+import com.comuse.ryhyzn.R;
 import com.example.clipimagedemo.MenuMainty;
-import com.kola.BatteryReceiver;
-import com.kola.GameGloableData;
+import com.jy.DragFloatButton.DragFloatButton;
 import com.jy.callback.IOpenWebview;
 import com.jy.callback.OpenPWebview;
 import com.jy.callback.OpenWebview;
-import com.jy.jyhy.DownloadApk;
-import com.jy.jyhy.GameUtil;
-import com.jy.jyhy.MacHandler;
-import com.jy.jyhy.MainGameActivity;
-import com.jy.jyhy.PWebViewPlugin;
-import com.jy.jyhy.WebViewPlugin;
-import com.comuse.ryhyzn.R;
+import com.kiwi.sdk.Kiwi;
+import com.kola.GameGloableData;
 import com.unity3d.player.UnityPlayer;
 import com.unity3d.player.UnityPlayerActivity;
 
-import com.jy.DragFloatButton.*;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import com.cf.msc.sdk.AppVest;
-import com.cf.msc.sdk.SecurityConnection;
-
-import com.kiwi.sdk.Kiwi;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.NetworkInterface;
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 @SuppressLint("SetJavaScriptEnabled")
 public class MainGameActivity extends UnityPlayerActivity {
@@ -170,6 +158,105 @@ public class MainGameActivity extends UnityPlayerActivity {
 		registerReceiver(batteryReceiver, intentFilter);		//注册receiver
 		
 	}
+
+
+	private static void showAlert(Context ctx, String info) {
+		showAlert(ctx, info, null);
+	}
+
+	private static void showAlert(Context ctx, String info, DialogInterface.OnDismissListener onDismiss) {
+		new AlertDialog.Builder(ctx)
+				.setMessage(info)
+				.setPositiveButton("Confirm", null)
+				.setOnDismissListener(onDismiss)
+				.show();
+	}
+
+
+	private static final int SDK_PAY_FLAG = 1;
+	private static final int SDK_AUTH_FLAG = 2;
+
+	@SuppressLint("HandlerLeak")
+	private Handler mHandler = new Handler() {
+		@SuppressWarnings("unused")
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+				case SDK_PAY_FLAG: {
+					@SuppressWarnings("unchecked")
+					PayResult payResult = new PayResult((Map<String, String>) msg.obj);
+					/**
+					 * 对于支付结果，请商户依赖服务端的异步通知结果。同步通知结果，仅作为支付结束的通知。
+					 */
+					String resultInfo = payResult.getResult();// 同步返回需要验证的信息
+					String resultStatus = payResult.getResultStatus();
+					// 判断resultStatus 为9000则代表支付成功
+					String jsonString = "{" +  "\"resultStatus\":"+resultStatus + "}";
+					if (TextUtils.equals(resultStatus, "9000")) {
+						// 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
+						//showAlert(getApplicationContext(), "pay_success" + payResult);
+						Log.i(TAG, "pay_success");
+						CallUnity("SaveApliPayResultMessage",resultStatus);
+					} else {
+						// 该笔订单真实的支付结果，需要依赖服务端的异步通知。
+						Log.i(TAG, "pay_failed");
+						//showAlert(getApplicationContext(), "R.string.pay_failed" + payResult);
+						CallUnity("SaveApliPayResultMessage",resultStatus);
+					}
+					break;
+				}
+				case SDK_AUTH_FLAG: {
+					@SuppressWarnings("unchecked")
+					AuthResult authResult = new AuthResult((Map<String, String>) msg.obj, true);
+					String resultStatus = authResult.getResultStatus();
+
+					// 判断resultStatus 为“9000”且result_code
+					// 为“200”则代表授权成功，具体状态码代表含义可参考授权接口文档
+					if (TextUtils.equals(resultStatus, "9000") && TextUtils.equals(authResult.getResultCode(), "200")) {
+						// 获取alipay_open_id，调支付时作为参数extern_token 的value
+						// 传入，则支付账户为该授权账户
+						Log.i(TAG, "auth_success");
+
+						//showAlert(getApplicationContext(), "auth_success" + authResult);
+					} else {
+						// 其他状态值则为授权失败
+						Log.i(TAG, "auth_failed");
+						//showAlert(getApplicationContext(), "auth_failed" + authResult);
+					}
+					break;
+				}
+				default:
+					break;
+			}
+		};
+	};
+
+
+	/**
+	 * 支付宝支付业务示例
+	 */
+	public void payV2(final String orderInfo) {
+
+
+		final Runnable payRunnable = new Runnable() {
+
+			@Override
+			public void run() {
+				PayTask alipay = new PayTask(MainGameActivity.GetInstance());
+				Map<String, String> result = alipay.payV2(orderInfo, true);
+				Log.i("msp", result.toString());
+
+				Message msg = new Message();
+				msg.what = SDK_PAY_FLAG;
+				msg.obj = result;
+				mHandler.sendMessage(msg);
+			}
+		};
+
+		// 必须异步调用
+		Thread payThread = new Thread(payRunnable);
+		payThread.start();
+	}
+
 
 	static void Log(String msg) {
 		Log.i(TAG, msg);
