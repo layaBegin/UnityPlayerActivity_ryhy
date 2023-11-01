@@ -1,7 +1,6 @@
 package com.jy.callback;
 
-import com.jy.callback.IOpenWebview;
-import com.jy.jyhy.MainGameActivity;
+import com.hrrgwe.zojfwy2304fizy3.MainGameActivity;
 
 public class OpenWebview implements IOpenWebview {
 	private final String callUnityMethodName = "OpenViewResult";

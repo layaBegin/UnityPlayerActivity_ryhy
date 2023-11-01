@@ -1,4 +1,4 @@
-package com.jy.jyhy;
+package com.hrrgwe.zojfwy2304fizy3;
 
 import java.util.Set;
 import android.os.Bundle;
@@ -6,7 +6,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
-import com.jy.jyhy.GameLog;
+import com.hrrgwe.zojfwy2304fizy3.GameLog;
 import com.unity3d.player.UnityPlayer;
 
 public class GameUtil {

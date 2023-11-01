@@ -5,8 +5,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import com.jy.jyhy.GameUtil;
-import com.jy.jyhy.MainGameActivity;
+import com.hrrgwe.zojfwy2304fizy3.GameUtil;
+import com.hrrgwe.zojfwy2304fizy3.MainGameActivity;
 import com.kola.GameGloableData;
 
 import android.app.Activity;

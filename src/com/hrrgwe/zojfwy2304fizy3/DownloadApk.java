@@ -1,4 +1,4 @@
-package com.jy.jyhy;
+package com.hrrgwe.zojfwy2304fizy3;
 
 import android.Manifest;
 import android.app.Activity;
@@ -22,8 +22,8 @@ import org.apache.http.conn.ssl.AllowAllHostnameVerifier;
 import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import com.jy.jyhy.GameLog;
-import com.jy.jyhy.GameUtil;
+import com.hrrgwe.zojfwy2304fizy3.GameLog;
+import com.hrrgwe.zojfwy2304fizy3.GameUtil;
 
 import java.io.File;
 import java.io.FileOutputStream;
